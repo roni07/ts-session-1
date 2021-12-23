@@ -1,24 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import TodoForm from "./TodoForm";
+import TodoList from "./TodoList";
 
-function App() {
+// interface Address {
+//   title: string,
+//   location: string
+// }
+
+export interface User {
+  userId: number,
+  id: number,
+  title: string,
+  // address: Address | null
+}
+
+const App: React.FC = () => {
+
+  // const [user, setUser] = useState<User>({
+  //   userId: 0,
+  //   id: 1,
+  //   title: "Hello",
+  //   completed: false,
+  // });
+
+  const [users, setUsers] = useState<User[]>([]);
+
+  const handleSubmit = (user: User) => {
+    setUsers([...users, user]);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <TodoForm
+          handleSubmit={handleSubmit}
+          // setUsers={setUsers}
+      />
+      <TodoList users={users}/>
     </div>
   );
 }
